@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+         crossorigin="anonymous">
+
+         <style>
+             .head{
+                 text-align: center;
+                 margin-left: 30%;
+                 margin-right: 30%;
+                 size: 20px;
+             }
+             .login{
+                 text-align: center;
+                 margin-left: 30%;
+                 margin-right: 30%;
+             }
+             .input{
+                margin-left: 30%;
+                margin-right: 30%;
+             }
+         </style>
+    </head>
+    <body>
+        <br>
+        <div class="alert alert-primary head" role="alert">
+            Welcome to Arakkal, Please Login !
+        </div>
+        <br>
+        <div class="alert alert-secondary login" role="alert">
+            <br><br>
+            <div class="container">
+                <form action="/action_page.php">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                  </div>
+                  <div class="form-group">
+                    <label for="pwd">Password</label>
+                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+                  </div>
+                  <div class="form-group form-check">
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" name="remember"> Remember me
+                    </label>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div>
+              <br><br><br>
+        </div>
+    </body>
+</html>
