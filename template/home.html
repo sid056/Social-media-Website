@@ -1,22 +1,143 @@
+{% load static %}
+
 <html>
     <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-          crossorigin="anonymous">
+        <script src="{% static 'jquery-3.5.0.js' %}"></script>
+        <script>
+
+            var wsstart = 'ws://'
+            var loc = window.location
+            if (loc.protocol === 'https' ){
+                wsstart = 'wss://'
+            }
+            var endpoint = wsstart + loc.host + loc.pathname
+            var websocket = new WebSocket(endpoint)
+
+            websocket.onmessage = function(e){
+                console.log("message vannu",e )
+                var chatdata = JSON.parse(e.data)
+                $("#space").append(
+                "<div class='posts'><div>" + 
+                chatdata.username +
+                "<br><br>" +
+                chatdata.message + 
+                "</div></div><br>")
+            }
+            websocket.onopen = function(e){
+                console.log("open   ",e )
+                $("#form1").submit(function(event){
+                    event.preventDefault()
+                    var datas = {
+                        'message' : $("#text").val()
+                    }
+                    websocket.send(JSON.stringify(datas))
+                    $("#text").val(' ')
+                })
+
+            }
+            websocket,onerror = function(e){
+                console.log("error",e )
+            }
+            websocket.onclose = function(e){
+                console.log("close",e )
+            }
+
+        </script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <style>
             .menu{
                 margin-left: 5%;
                 margin-right: 5%;
+                border-radius: 10px;
+            }
+            /* .input{
+                height: 100px;
+                width: 75%;
+                border-radius: 20px;
+                /* border: 3px solid #808000; */
+                /* margin-left: 10%;
+                margin-right: 10%;
+                vertical-align: middle;
+                background: #cccc00;
+            } */ 
+            .input1 {
+                height: 40px;
+                width: 50% ;
+                margin-left: 50px;
+                border-radius: 20px;
+                border: 1px solid #ccc;
+                padding: 25px;
+                -webkit-appearance: textfield;
+                -moz-appearance: textfield;
+                appearance: textfield;
+            }
+            .submit{
+                height: 40px;
+                width: 15%;
+                margin-left: 2%;
+                border-radius: 20px;
+                border: 1px solid #ccc;
+            }
+            .submit:hover{
+                background-color: burlywood;
+            }
+            .posts{
+
+                text-align: center;
+                border: 1px solid #ccc;
+                margin-left: 30%;
+                margin-right: 30%;
+                background: white;
+
+            }
+            .posts > div{
+
+                text-align: left;
+                position: relative;
+                left: 5px;
+                top: 0px;
+                width: 100px;
+
+            }
+            .user{
+
+                position: absolute;
+                left : 10px;
+                top: 20px;
+                font-weight: bolder;
+
+            }
+            body{
+                background-color: #d9d9d9;
             }
         </style>
+
+
     </head>
     <body>
         <br>
-        <div class="alert alert-info menu" role="alert" align="right">
-            <button type="button" class="btn btn-primary">Profile</button>
+        <div class="alert alert-info menu" role="alert" align="right" >
+            <div class="user">
+                Hi , {{ user }}
+            </div>
+            <button type="button" class="btn btn-primary" onclick="parent.location.href='/{{user}}',self.close();">Profile</button>
             <button type="button" class="btn btn-primary">About</button>
             <button type="button" class="btn btn-primary">Gallery</button>
-            <button type="button" class="btn btn-danger">Logout</button>
+            <button type="button" class="btn btn-danger" >Logout</button>
         </div>
+        <br>
+        <div class="input" align="center" >
+            <br>    
+            <form id="form1" method="POST">
+                {% csrf_token %}
+                <input type="text"  id="text" class="input1" placeholder="   What's on your mind ?.. " >
+                <input class="submit" type="submit" value="POST">
+            </form>
+        </div>
+        <br>
+        <br>
+        <span id="space">
+
+        </span>
     </body>
 </html>
