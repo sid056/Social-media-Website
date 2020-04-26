@@ -2,6 +2,9 @@
 
 <html>
     <head>
+        <title>
+            Home
+        </title>
         <script src="{% static 'jquery-3.5.0.js' %}"></script>
         <script>
 
@@ -123,7 +126,7 @@
             <button type="button" class="btn btn-primary" onclick="parent.location.href='/{{user}}'">Profile</button>
             <button type="button" class="btn btn-primary">About</button>
             <button type="button" class="btn btn-primary">Gallery</button>
-            <button type="button" class="btn btn-danger" >Logout</button>
+            <button type="button" class="btn btn-danger" onclick="parent.location.href='/logout/'">Logout</button>
         </div>
         <br>
         <div class="input" align="center" >
