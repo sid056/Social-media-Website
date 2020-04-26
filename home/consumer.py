@@ -66,6 +66,6 @@ class Chatconsumer(AsyncConsumer):
     
     @database_sync_to_async
     def save_post(self,user,post_txt):
-        post = Post.object.create(postid=user,text=post_txt)
+        post = Post.objects.create(postid=user,text=post_txt)
 
         

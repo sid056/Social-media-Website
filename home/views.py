@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
@@ -17,4 +17,7 @@ def ProfileView(request,username) :
             return render(request, 'own_profile.html' , {'user':user})
         else :
             return render(request, 'other_profile.html' , {'user':user})
+
+def CreateUser(request):
+    print(hi)
 

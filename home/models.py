@@ -33,9 +33,16 @@ def update_followers(sender , created , instance , **kwargs) :
     if created :
         follower = Follower_list.objects.create(username=instance.following,follower=instance.username)
 
+# def initialise_user(sender , created , instance , **kwargs) :
+#     if created :
+#         user1 = User.objects.get(username='sid056')
+#         print(user1)
+#         following = Following_list.objects.create(username=instance , follower=user1)
+
 
 
 post_save.connect(update_followers , sender=Following_list)
+# post_save.connect(initialise_user , sender=User)
 
 
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .forms import UserForm
+from .forms import UserForm,NewUerForm
 from django.contrib.auth import authenticate,login,logout
 
 def Login(request) :
@@ -25,4 +25,22 @@ def Login(request) :
                 print("user fucked up ")
                 form = UserForm()
                 return render(request , 'login.html' , {'form':form})
+
+
+def SignupView(request) :
+    if request.method == 'POST' :
+        form = NewUerForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+        else :                
+                print("FORM  OOMBI")
+
+    else :
+
+        form = NewUerForm()
+
+
+    return render(request,'signup.html',{'form':form})    
 
