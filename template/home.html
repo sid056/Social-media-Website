@@ -142,5 +142,17 @@
         <span id="space">
 
         </span>
+        {% for post in posts %}
+            {% if post.postid in following %}
+                <div class='posts'>
+                    <div>
+                        {{post.postid}}
+                        {{post.post_time}}
+                    </div>
+                    <br><br>
+                    {{post.text}} 
+                </div><br>
+            {% endif %}
+        {% endfor %}
     </body>
 </html>

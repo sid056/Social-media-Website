@@ -47,5 +47,5 @@ def SignupView(request) :
 def LogoutView(request) :
 
     logout(request)
-    return redirect('login')
+    return redirect('/')
 

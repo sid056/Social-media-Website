@@ -47,11 +47,14 @@ class Chatconsumer(AsyncConsumer):
                 f"room.{user.username}",
                 {
                     "type":"posting",
-                    "message":"post"
+                    "message":json.dumps(response)
                 }
             )
     async def posting(self,event) :
-        print("hey",event)
+        await self.send({
+            "type" : "websocket.send",
+            "text" : event['message']
+        })
 
     async def websocket_disconnect(self,event):
         print("disconnected",event)
