@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Post,Following_list
 
-@login_required()
+@login_required(login_url="/")
 def HomeView(request):
     following=[]
     posts = Post.objects.all().order_by('-id')
